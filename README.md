@@ -103,3 +103,6 @@ GET /api/rates?from=USD&to=RUB&value=1
       
      [1]: https://imageup.ru/img133/4525637/1.png
      </details>
+
+### Используемые API
+- Конвертер валют - https://api.apilayer.com
