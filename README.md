@@ -105,4 +105,5 @@ GET /api/rates?from=USD&to=RUB&value=1
      </details>
 
 ### Используемые API
+---
 - Конвертер валют - https://api.apilayer.com
