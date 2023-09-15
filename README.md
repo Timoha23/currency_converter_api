@@ -1,6 +1,7 @@
 # Currenct Converter REST API
 
 Данный REST API, содержит один эндпоинт, который предназанчен для конвертации валют.
+
 Swagger - http://0.0.0.0:8000/docs
 <details>
 <summary>ТЗ проекта ↓</summary>
