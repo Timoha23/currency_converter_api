@@ -1,0 +1,24 @@
+[tool.pytest.ini_options]
+asyncio_mode="auto"
+
+[tool.poetry]
+name = "currency-converter-api"
+version = "0.1.0"
+description = ""
+authors = ["Tim"]
+readme = "README.md"
+packages = [{include = "currency_converter_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^1.0.0"
+fastapi = {extras = ["uvicorn"], version = "^0.103.1"}
+pydantic = "^2.3.0"
+pytest-asyncio = "^0.21.1"
+httpx = "^0.25.0"
+uvicorn = "^0.23.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

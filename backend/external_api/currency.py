@@ -1,5 +1,6 @@
 import httpx
 
+from backend.api.exceptions import NoAPIKeyException
 from backend.settings import API_KEY, TIMEOUT_FOR_EXTERNAL_API_SECONDS
 from backend.external_api.schemas import ConversionData
 
@@ -32,4 +33,6 @@ async def get_conversion_result(
             'apikey': API_KEY
         }
         currency_json = await client.get(url=url, params=params)
+        if currency_json.status_code == 401:
+            raise NoAPIKeyException
         return currency_json.json()

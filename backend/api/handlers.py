@@ -1,6 +1,7 @@
-from asyncio.exceptions import TimeoutError
+from httpx import ReadTimeout
 
 from fastapi import APIRouter, HTTPException, Query
+from backend.api.exceptions import NoAPIKeyException
 
 from backend.api.schemas import ConversionResultAmount
 from backend.external_api.currency import get_conversion_result
@@ -24,7 +25,7 @@ async def convert_currency(
         - amount - сумма конвертации
 
     :return
-        - {"result": float} - результат ковертации
+        - ConversionResultAmount - результат ковертации
 
     """
 
@@ -38,15 +39,22 @@ async def convert_currency(
         if conversion_result.get("success") is False:
             status_code = conversion_result.get("error").get("code")
             detail = conversion_result.get("error").get("info")
+            if status_code in (401, 402):
+                status_code = 422
             raise HTTPException(
                 status_code=status_code,
                 detail=detail,
             )
-    except TimeoutError:
+    except ReadTimeout:
         raise HTTPException(
             status_code=504,
             detail="Превышенно время ожидаения ответа от "
                    "сервера: https://api.apilayer.com"
+        )
+    except NoAPIKeyException:
+        raise HTTPException(
+            status_code=401,
+            detail="Неверный API ключ для https://api.apilayer.com"
         )
 
     result = conversion_result.get("result")
